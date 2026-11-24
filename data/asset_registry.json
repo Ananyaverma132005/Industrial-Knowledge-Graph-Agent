@@ -1,0 +1,64 @@
+{
+  "line": {"id": "AL-01", "name": "Assembly Line 1"},
+  "machines": [
+    {
+      "id": "M1", "name": "CNC Milling Machine", "type": "CNC", "status": "Operational", "tier": "H",
+      "parts": ["Spindle", "Coolant Pump", "Servo Motor", "Ball Screw", "Tool Changer"],
+      "sensors": [
+        {"type": "Temperature", "unit": "C", "reading": 71.5, "threshold": 90},
+        {"type": "Vibration", "unit": "mm/s", "reading": 3.2, "threshold": 7.1}
+      ]
+    },
+    {
+      "id": "M2", "name": "Robotic Welding Arm", "type": "Robot", "status": "Operational", "tier": "M",
+      "parts": ["Servo Motor", "Welding Torch", "Wire Feeder", "Gearbox"],
+      "sensors": [
+        {"type": "Temperature", "unit": "C", "reading": 64.0, "threshold": 90},
+        {"type": "Vibration", "unit": "mm/s", "reading": 2.1, "threshold": 6.0}
+      ]
+    },
+    {
+      "id": "M3", "name": "Hydraulic Press", "type": "Press", "status": "Under Maintenance", "tier": "H",
+      "parts": ["Hydraulic Pump", "Hydraulic Seal", "Pressure Valve", "Ram Cylinder"],
+      "sensors": [
+        {"type": "Temperature", "unit": "C", "reading": 77.8, "threshold": 90},
+        {"type": "Pressure", "unit": "bar", "reading": 182.0, "threshold": 210},
+        {"type": "Vibration", "unit": "mm/s", "reading": 4.4, "threshold": 7.1}
+      ]
+    },
+    {
+      "id": "M4", "name": "Belt Conveyor", "type": "Conveyor", "status": "Operational", "tier": "L",
+      "parts": ["Drive Belt", "Roller", "Gearbox", "Drive Motor"],
+      "sensors": [
+        {"type": "Temperature", "unit": "C", "reading": 48.3, "threshold": 90},
+        {"type": "Vibration", "unit": "mm/s", "reading": 2.8, "threshold": 4.5}
+      ]
+    },
+    {
+      "id": "M5", "name": "CNC Lathe", "type": "CNC", "status": "Operational", "tier": "M",
+      "parts": ["Spindle", "Chuck", "Coolant Pump", "Bearing"],
+      "sensors": [
+        {"type": "Temperature", "unit": "C", "reading": 69.1, "threshold": 90},
+        {"type": "Vibration", "unit": "mm/s", "reading": 3.0, "threshold": 7.1}
+      ]
+    },
+    {
+      "id": "M6", "name": "Pick-and-Place Robot", "type": "Robot", "status": "Degraded", "tier": "M",
+      "parts": ["Servo Motor", "Gripper", "Vacuum Generator", "Bearing"],
+      "sensors": [
+        {"type": "Temperature", "unit": "C", "reading": 74.6, "threshold": 90},
+        {"type": "Vibration", "unit": "mm/s", "reading": 5.2, "threshold": 6.0}
+      ]
+    }
+  ],
+  "technicians": [
+    {"id": "T1", "name": "Arjun Mehta", "specialization": "CNC Machining", "shift": "A",
+     "maintains": [{"machine_id": "M1", "last_maintenance": "2026-10-28"}, {"machine_id": "M5", "last_maintenance": "2026-11-10"}]},
+    {"id": "T2", "name": "Priya Nair", "specialization": "Robotics", "shift": "B",
+     "maintains": [{"machine_id": "M2", "last_maintenance": "2026-11-04"}, {"machine_id": "M6", "last_maintenance": "2026-11-14"}]},
+    {"id": "T3", "name": "Karan Singh", "specialization": "Hydraulics", "shift": "A",
+     "maintains": [{"machine_id": "M3", "last_maintenance": "2026-10-26"}]},
+    {"id": "T4", "name": "Sneha Rao", "specialization": "Mechanical", "shift": "C",
+     "maintains": [{"machine_id": "M4", "last_maintenance": "2026-11-16"}, {"machine_id": "M3", "last_maintenance": "2026-11-20"}]}
+  ]
+}

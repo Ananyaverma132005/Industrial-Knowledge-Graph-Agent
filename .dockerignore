@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.git/
+models/
+data/graph_snapshot.json
+data/manuals/*.pdf
+_site/
+demo/

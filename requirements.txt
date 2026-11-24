@@ -1,0 +1,22 @@
+# Python 3.11 recommended (spaCy / PyTorch wheels). Versions verified together.
+# API gateway
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+httpx==0.28.1
+# Cognitive engine
+langgraph==1.2.24
+langchain-core==1.8.4
+langchain-neo4j==0.11.0
+langchain-ollama==1.2.0
+sentence-transformers==6.3.0
+torch==2.15.0
+spacy==3.8.18
+# Storage layer + ML
+neo4j==6.4.1
+scikit-learn==1.9.1
+joblib==1.6.0
+pandas==3.1.1
+numpy==2.4.6
+# Documents
+pypdf==6.21.4
+fpdf2==2.9.0
