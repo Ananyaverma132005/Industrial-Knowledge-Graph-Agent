@@ -15,9 +15,10 @@ $py = ".\.venv\Scripts\python.exe"
 
 if (-not (Test-Path ".env")) { Copy-Item ".env.example" ".env" }
 
-& $py make_sample_manuals.py   # sample SOP PDFs (replace with real manuals any time)
+& $py make_sample_manuals.py   # sample SOP PDFs for the six machines
+# Public OSHA manuals are already saved in data/manuals/public. To refresh them: & $py scrape_manuals.py
 & $py train_model.py           # RandomForest failure model
-& $py ingest.py                # asset registry + tickets -> knowledge graph (spaCy NER)
-& $py ingest_pdf.py            # PDF manuals -> SOP vectors
+& $py ingest.py                # asset registry + tickets + failure modes + spares -> knowledge graph (spaCy)
+& $py ingest_pdf.py            # PDF + scraped manuals -> SOP vectors
 
 Write-Host "`nSetup complete. Start the app with:  powershell -File run.ps1"

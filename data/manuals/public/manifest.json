@@ -1,0 +1,42 @@
+[
+  {
+    "file": "ALL_osha_lockout_tagout",
+    "title": "OSHA 1910.147 Control of hazardous energy (lockout/tagout)",
+    "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147",
+    "chars": 5274,
+    "scraped_on": "2026-11-25",
+    "license": "US Government work (public domain)"
+  },
+  {
+    "file": "ALL_osha_machine_guarding",
+    "title": "OSHA 1910.212 General requirements for all machines",
+    "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.212",
+    "chars": 1852,
+    "scraped_on": "2026-11-25",
+    "license": "US Government work (public domain)"
+  },
+  {
+    "file": "M3_osha_power_presses",
+    "title": "OSHA 1910.217 Mechanical power presses",
+    "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.217",
+    "chars": 4892,
+    "scraped_on": "2026-11-25",
+    "license": "US Government work (public domain)"
+  },
+  {
+    "file": "M4_osha_power_transmission",
+    "title": "OSHA 1910.219 Mechanical power-transmission apparatus (belts, pulleys)",
+    "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.219",
+    "chars": 4883,
+    "scraped_on": "2026-11-25",
+    "license": "US Government work (public domain)"
+  },
+  {
+    "file": "M2_M6_osha_robotics",
+    "title": "OSHA Robotics safety",
+    "url": "https://www.osha.gov/robotics",
+    "chars": 1450,
+    "scraped_on": "2026-11-25",
+    "license": "US Government work (public domain)"
+  }
+]

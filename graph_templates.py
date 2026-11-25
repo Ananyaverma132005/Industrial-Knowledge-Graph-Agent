@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 # Entity resolution
 # ---------------------------------------------------------------------------
 GENERIC_TOKENS = {"machine", "cnc", "robot", "arm", "the", "and", "system"}
-PRONOUNS = re.compile(r"\b(it|its|this|that|they|them|those|these|same|there)\b")
+PRONOUNS = re.compile(r"\b(it|its|this|that|they|them|those|these|same)\b")
 
 
 def _norm(tok: str) -> str:
@@ -310,6 +310,10 @@ def detect_count_label(query: str) -> str:
 
 def answer(query: str, store, ents: Entities) -> dict:
     """Run the template pipeline. Returns answer text, the Cypher used, rows and intent."""
+    import reasoning  # root cause, troubleshooting, impact and spares questions
+    reasoned = reasoning.answer(query, store, ents.machines, ents.parts)
+    if reasoned is not None:
+        return reasoned
     machines = store.nodes("Machine")
     machines_by_id = {m["id"]: m for m in machines}
     intent = detect_intent(query, ents)

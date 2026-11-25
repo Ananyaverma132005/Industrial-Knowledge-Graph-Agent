@@ -67,6 +67,18 @@ def main() -> None:
         raise SystemExit("No PDFs in data/manuals - run `python make_sample_manuals.py` or add manuals.")
 
     records = []
+    # Public-domain manuals saved by scrape_manuals.py (plain text, first line is the title)
+    for txt in sorted((config.MANUALS_DIR / "public").glob("*.txt")):
+        targets = machines_for(txt.stem, machine_ids)
+        lines = txt.read_text(encoding="utf-8").splitlines()
+        title, body = lines[0], " ".join(lines[2:])
+        code = "PUB-" + txt.stem.split("_osha_")[-1].upper().replace("_", "-")
+        pieces = chunk(body, code)
+        for n, p in enumerate(pieces, 1):
+            p.update(sop_code=f"{code}-{n}", title=f"{title} (part {n})")
+            records.append({**p, "source": f"{txt.name} (scraped, public domain)", "machines": targets})
+        print(f"[txt] {txt.name}: {len(pieces)} chunks -> applies to {targets}")
+
     for pdf in pdfs:
         targets = machines_for(pdf.stem, machine_ids)
         pieces = chunk(read_pdf(pdf), pdf.stem)

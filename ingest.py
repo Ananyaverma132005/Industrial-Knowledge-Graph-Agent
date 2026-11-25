@@ -1,19 +1,21 @@
 """Data ingestion.
 
-Parses the asset registry and maintenance-ticket JSON, runs the spaCy NLP pipeline with a
-custom entity_ruler that tags machine parts as PART entities, and commits the resulting
-graph to Neo4j (MERGE) and to the local JSON snapshot.
+Parses the asset registry, maintenance tickets and the failure-mode / spare-part knowledge
+base. spaCy tags machine parts in ticket text (entity_ruler, PART entities) and finds failure
+symptoms and causes (PhraseMatcher), so each ticket is linked to the part it reports and the
+failure modes it indicates. The graph is committed to Neo4j (MERGE) and to the JSON snapshot.
 
     python ingest.py
 """
 import json
 
 import spacy
+from spacy.matcher import PhraseMatcher
 
 import config
 import graph_io
 
-STRUCTURAL_LABELS = {"Machine", "Part", "Sensor", "Ticket", "Technician"}
+STRUCTURAL_LABELS = {"Machine", "Part", "Sensor", "Ticket", "Technician", "FailureMode", "SparePart"}
 
 
 def slug(text: str) -> str:
@@ -45,7 +47,22 @@ def extract_parts(nlp, text: str) -> list[str]:
     return sorted({ent.ent_id_ or ent.text.title() for ent in doc.ents if ent.label_ == "PART"})
 
 
-def build_graph(registry: dict, tickets: list[dict], nlp) -> tuple[list, list, list]:
+def build_phrase_matcher(nlp, kb: dict) -> PhraseMatcher:
+    """Failure-mode phrases (FM ids) and spare-part names (SP ids), matched case-insensitively."""
+    matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
+    for fm in kb["failure_modes"]:
+        matcher.add(fm["id"], [nlp.make_doc(p) for p in fm["phrases"]])
+    for sp in kb["spare_parts"]:
+        matcher.add(sp["id"], [nlp.make_doc(sp["name"])])
+    return matcher
+
+
+def match_ids(nlp, matcher, text: str, prefix: str) -> list[str]:
+    doc = nlp.make_doc(text)
+    return sorted({nlp.vocab.strings[mid] for mid, _, _ in matcher(doc) if nlp.vocab.strings[mid].startswith(prefix)})
+
+
+def build_graph(registry: dict, tickets: list[dict], nlp, kb: dict | None = None) -> tuple[list, list, list]:
     nodes, edges, warnings = [], [], []
     parts_by_machine: dict[str, dict[str, str]] = {}
 
@@ -82,21 +99,66 @@ def build_graph(registry: dict, tickets: list[dict], nlp) -> tuple[list, list, l
             warnings.append(f"{tk['id']}: no part of {tk['machine_id']} found in text (entities: {found})")
         for pid in linked:
             edges.append({"source": tk["id"], "target": pid, "type": "REPORTS_FAILURE_ON", "props": {}})
+
+    if kb:
+        add_failure_knowledge(registry, tickets, nlp, kb, parts_by_machine, nodes, edges)
     return nodes, edges, warnings
+
+
+def add_failure_knowledge(registry, tickets, nlp, kb, parts_by_machine, nodes, edges) -> None:
+    """Failure modes, spare parts, production flow and the ticket links that reasoning relies on."""
+    # Production order: (Machine)-[:FEEDS]->(Machine)
+    for src, dst in registry.get("line_flow", []):
+        edges.append({"source": src, "target": dst, "type": "FEEDS", "props": {}})
+
+    for sp in kb["spare_parts"]:
+        nodes.append({"id": sp["id"], "label": "SparePart", "props": {
+            "id": sp["id"], "name": sp["name"], "stock": sp["stock"],
+            "lead_time_days": sp["lead_time_days"], "location": sp["location"]}})
+        wanted = {p.lower() for p in sp["for_parts"]}
+        for mid, parts in parts_by_machine.items():
+            for pname, pid in parts.items():
+                if pname in wanted:
+                    edges.append({"source": pid, "target": sp["id"], "type": "USES_SPARE", "props": {}})
+
+    for fm in kb["failure_modes"]:
+        nodes.append({"id": fm["id"], "label": "FailureMode", "props": {"id": fm["id"], "name": fm["name"]}})
+        for cause in fm["causes"]:
+            edges.append({"source": fm["id"], "target": cause, "type": "CAUSED_BY", "props": {}})
+        for sop in fm["sops"]:
+            edges.append({"source": fm["id"], "target": sop, "type": "RESOLVED_BY", "props": {}})
+        for sp in fm["spares"]:
+            edges.append({"source": fm["id"], "target": sp, "type": "NEEDS_SPARE", "props": {}})
+        wanted = {p.lower() for p in fm["parts"]}
+        for parts in parts_by_machine.values():
+            for pname, pid in parts.items():
+                if pname in wanted:
+                    edges.append({"source": fm["id"], "target": pid, "type": "AFFECTS", "props": {}})
+
+    matcher = build_phrase_matcher(nlp, kb)
+    for tk in tickets:
+        for fm_id in match_ids(nlp, matcher, tk["text"], "FM-"):
+            edges.append({"source": tk["id"], "target": fm_id, "type": "INDICATES", "props": {}})
+        if "replac" in tk["text"].lower():
+            for sp_id in match_ids(nlp, matcher, tk["text"], "SP-"):
+                edges.append({"source": tk["id"], "target": sp_id, "type": "USED_SPARE", "props": {}})
 
 
 def main() -> None:
     registry = json.loads(config.ASSET_REGISTRY.read_text(encoding="utf-8"))
     tickets = json.loads(config.TICKETS_FILE.read_text(encoding="utf-8"))
+    kb = json.loads(config.FAILURE_KB.read_text(encoding="utf-8"))
     all_parts = [p for m in registry["machines"] for p in m["parts"]]
     nlp, model = build_nlp(all_parts)
     print(f"[nlp] spaCy pipeline: {model} + entity_ruler ({len(set(all_parts))} PART patterns)")
 
-    nodes, edges, warnings = build_graph(registry, tickets, nlp)
+    nodes, edges, warnings = build_graph(registry, tickets, nlp, kb)
     for w in warnings:
         print("[nlp] warning:", w)
     links = sum(1 for e in edges if e["type"] == "REPORTS_FAILURE_ON")
-    print(f"[graph] {len(nodes)} nodes, {len(edges)} relationships ({links} REPORTS_FAILURE_ON from NLP)")
+    indicates = sum(1 for e in edges if e["type"] == "INDICATES")
+    print(f"[graph] {len(nodes)} nodes, {len(edges)} relationships "
+          f"({links} REPORTS_FAILURE_ON and {indicates} INDICATES links from NLP)")
 
     snapshot = graph_io.replace_in_snapshot(graph_io.load_snapshot(), nodes, edges, STRUCTURAL_LABELS)
     graph_io.save_snapshot(snapshot)

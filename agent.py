@@ -21,6 +21,7 @@ from langgraph.graph import END, StateGraph
 
 import config
 import graph_templates as gt
+import reasoning
 from embeddings import HASHING_NAME, get_embedder
 from kg_store import UnsafeCypherError, assert_read_only
 
@@ -45,8 +46,8 @@ GRAPH_WORDS = re.compile(
     r"overview|what parts"
 )
 VECTOR_WORDS = re.compile(
-    r"how (do|to|can|should)|procedure|steps?|\bsops?\b|\bfix\b|repair|replace|troubleshoot|what should|reset|"
-    r"prime|priming|calibrat|safety|lockout|loto|ppe|instruction|guide|clean|align|tension|diagnos|overheat|leak"
+    r"how (do|to|can|should)|procedure|steps?|\bsops?\b|\bfix\b|repair|replace|what should|reset|"
+    r"prime|priming|calibrat|safety|lockout|loto|ppe|instruction|guide|clean|align|tension|overheat|leak"
 )
 
 ROUTER_PROMPT = """You route questions for an industrial maintenance assistant.
@@ -202,7 +203,9 @@ class KGAgent:
     def router_node(self, state: AgentState) -> dict:
         q = state["query"].lower()
         g, v = len(GRAPH_WORDS.findall(q)), len(VECTOR_WORDS.findall(q))
-        if g or v:
+        if reasoning.detect_intent(q):  # root cause / troubleshooting / impact / spares walk the graph
+            route, how = "GRAPH", f"keyword rules ({reasoning.detect_intent(q).replace('_', ' ')})"
+        elif g or v:
             route = "VECTOR" if v > g or (v == g and re.match(r"\s*how (do|to|can|should)", q)) else "GRAPH"
             how = "keyword rules"
         else:
@@ -221,6 +224,10 @@ class KGAgent:
     def graph_qa_node(self, state: AgentState) -> dict:
         ents = gt.Entities(**state["entities"])
         template = gt.answer(state["query"], self.store, ents)
+        if template["intent"] in ("root_cause", "troubleshoot", "impact", "spares"):
+            where = "Neo4j" if self.store.backend == "neo4j" else "in-memory graph"
+            return {"answer": template["answer"], "cypher": template["cypher"], "highlight": template["highlight"],
+                    "mode": f"graph reasoning ({template['intent'].replace('_', ' ')}) on {where}"}
         llm = self.llm_provider.get()
 
         if llm is not None and self.store.backend == "neo4j" and not ents.carried_over:

@@ -9,7 +9,7 @@ from collections import defaultdict
 
 import config
 
-LABELS = ["Machine", "Part", "Sensor", "Ticket", "SOP", "Technician"]
+LABELS = ["Machine", "Part", "Sensor", "Ticket", "SOP", "Technician", "FailureMode", "SparePart"]
 
 
 def load_snapshot() -> dict:

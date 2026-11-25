@@ -1,0 +1,47 @@
+{
+  "failure_modes": [
+    {"id": "FM-SPINDLE-OVERHEAT", "name": "Spindle overheating", "parts": ["Spindle"], "phrases": ["spindle overheating", "spindle running hot", "spindle temperature high", "spindle overheat"], "causes": ["FM-COOLANT-LOW", "FM-BEARING-WEAR", "FM-LUBRICATION"], "sops": ["SOP-CNC-01", "SOP-LTH-02"], "spares": ["SP-BEARING-SET"]},
+    {"id": "FM-SPINDLE-VIBRATION", "name": "Spindle vibration", "parts": ["Spindle"], "phrases": ["abnormal vibration", "spindle vibration", "grinding noise"], "causes": ["FM-BEARING-WEAR", "FM-IMBALANCE"], "sops": ["SOP-CNC-02"], "spares": ["SP-BEARING-SET"]},
+    {"id": "FM-COOLANT-LOW", "name": "Low coolant flow", "parts": ["Coolant Pump"], "phrases": ["low coolant flow", "coolant flow", "not priming"], "causes": ["FM-PUMP-AIRLOCK", "FM-FILTER-CLOG"], "sops": ["SOP-CNC-03"], "spares": ["SP-COOLANT-FILTER"]},
+    {"id": "FM-SEAL-LEAK", "name": "Hydraulic seal leak", "parts": ["Hydraulic Seal"], "phrases": ["seal leaking", "seal leak", "seal failure", "oil seepage"], "causes": ["FM-OIL-CONTAMINATION", "FM-OVERPRESSURE"], "sops": ["SOP-HYD-01"], "spares": ["SP-SEAL-KIT"]},
+    {"id": "FM-PUMP-CAVITATION", "name": "Hydraulic pump cavitation", "parts": ["Hydraulic Pump"], "phrases": ["cavitation", "whining noise"], "causes": ["FM-LOW-OIL", "FM-FILTER-CLOG"], "sops": ["SOP-HYD-02"], "spares": ["SP-HYD-FILTER"]},
+    {"id": "FM-SERVO-OVERCURRENT", "name": "Servo motor overcurrent", "parts": ["Servo Motor"], "phrases": ["overcurrent"], "causes": ["FM-MECH-JAM", "FM-CABLE-FAULT"], "sops": ["SOP-ROB-01", "SOP-CNC-04"], "spares": ["SP-SERVO-DRIVE"]},
+    {"id": "FM-ENCODER-ERROR", "name": "Encoder error", "parts": ["Servo Motor"], "phrases": ["encoder error", "lost its home position"], "causes": ["FM-CABLE-FAULT"], "sops": ["SOP-ROB-02"], "spares": ["SP-ENCODER-CABLE"]},
+    {"id": "FM-VACUUM-LOSS", "name": "Gripper vacuum loss", "parts": ["Gripper", "Vacuum Generator"], "phrases": ["vacuum drop", "failing to hold", "vacuum loss"], "causes": ["FM-CUP-WEAR", "FM-VACUUM-LEAK"], "sops": ["SOP-ROB-03"], "spares": ["SP-SUCTION-CUPS"]},
+    {"id": "FM-NOZZLE-CLOG", "name": "Welding nozzle clogged", "parts": ["Welding Torch"], "phrases": ["nozzle clogged", "poor bead quality"], "causes": ["FM-SPATTER"], "sops": ["SOP-ROB-04"], "spares": ["SP-WELD-NOZZLE"]},
+    {"id": "FM-WIRE-SLIP", "name": "Wire feeder slip", "parts": ["Wire Feeder"], "phrases": ["wire feeder slipping", "wire feeder slip", "inconsistent wire speed"], "causes": ["FM-ROLLER-WEAR"], "sops": ["SOP-ROB-05"], "spares": ["SP-FEED-ROLLERS"]},
+    {"id": "FM-BELT-MISALIGN", "name": "Drive belt misalignment", "parts": ["Drive Belt"], "phrases": ["belt misaligned", "fraying", "belt slipping"], "causes": ["FM-TENSION-LOW"], "sops": ["SOP-CNV-01"], "spares": ["SP-DRIVE-BELT"]},
+    {"id": "FM-BELT-BREAK", "name": "Drive belt breakage", "parts": ["Drive Belt"], "phrases": ["belt snapped", "belt broke", "belt breakage"], "causes": ["FM-BELT-MISALIGN", "FM-TENSION-LOW"], "sops": ["SOP-CNV-02"], "spares": ["SP-DRIVE-BELT"]},
+    {"id": "FM-CHUCK-CLAMP", "name": "Chuck not clamping evenly", "parts": ["Chuck"], "phrases": ["not clamping", "runout"], "causes": ["FM-JAW-WEAR"], "sops": ["SOP-LTH-01"], "spares": ["SP-CHUCK-JAWS"]},
+
+    {"id": "FM-BEARING-WEAR", "name": "Bearing wear", "parts": ["Spindle", "Bearing"], "phrases": ["bearing preload", "bearing wear", "worn bearing"], "causes": ["FM-LUBRICATION"], "sops": ["SOP-CNC-02"], "spares": ["SP-BEARING-SET"]},
+    {"id": "FM-LUBRICATION", "name": "Lubrication failure", "parts": [], "phrases": ["lubrication", "not pulsing", "spindle oil"], "causes": [], "sops": ["SOP-CNC-01"], "spares": []},
+    {"id": "FM-IMBALANCE", "name": "Tool imbalance", "parts": [], "phrases": ["imbalance", "unbalanced tool"], "causes": [], "sops": ["SOP-CNC-02"], "spares": []},
+    {"id": "FM-PUMP-AIRLOCK", "name": "Air lock in coolant pump", "parts": ["Coolant Pump"], "phrases": ["air lock", "re-primed"], "causes": [], "sops": ["SOP-CNC-03"], "spares": []},
+    {"id": "FM-FILTER-CLOG", "name": "Clogged filter", "parts": [], "phrases": ["filter found clogged", "clogged filter", "filter clogged"], "causes": [], "sops": [], "spares": ["SP-COOLANT-FILTER", "SP-HYD-FILTER"]},
+    {"id": "FM-OIL-CONTAMINATION", "name": "Contaminated hydraulic oil", "parts": [], "phrases": ["contaminated oil", "oil contamination"], "causes": [], "sops": ["SOP-HYD-01"], "spares": ["SP-HYD-FILTER"]},
+    {"id": "FM-OVERPRESSURE", "name": "System overpressure", "parts": ["Pressure Valve"], "phrases": ["overpressure", "pressure spike"], "causes": [], "sops": ["SOP-HYD-03"], "spares": []},
+    {"id": "FM-LOW-OIL", "name": "Low hydraulic oil level", "parts": [], "phrases": ["low oil level"], "causes": [], "sops": ["SOP-HYD-02"], "spares": []},
+    {"id": "FM-MECH-JAM", "name": "Mechanical jam", "parts": [], "phrases": ["mechanical jam", "jam on"], "causes": [], "sops": ["SOP-ROB-01"], "spares": []},
+    {"id": "FM-CABLE-FAULT", "name": "Cable or connector fault", "parts": [], "phrases": ["cable fault", "loose connector"], "causes": [], "sops": ["SOP-ROB-02"], "spares": ["SP-ENCODER-CABLE"]},
+    {"id": "FM-CUP-WEAR", "name": "Worn suction cups", "parts": ["Gripper"], "phrases": ["suction cups", "worn cups"], "causes": [], "sops": ["SOP-ROB-03"], "spares": ["SP-SUCTION-CUPS"]},
+    {"id": "FM-VACUUM-LEAK", "name": "Vacuum line leak", "parts": ["Vacuum Generator"], "phrases": ["vacuum leak", "vacuum line"], "causes": [], "sops": ["SOP-ROB-03"], "spares": []},
+    {"id": "FM-SPATTER", "name": "Spatter build-up", "parts": ["Welding Torch"], "phrases": ["spatter"], "causes": [], "sops": ["SOP-ROB-04"], "spares": []},
+    {"id": "FM-ROLLER-WEAR", "name": "Worn feed rollers", "parts": ["Wire Feeder", "Roller"], "phrases": ["worn feed rollers", "feed rollers"], "causes": [], "sops": ["SOP-ROB-05"], "spares": ["SP-FEED-ROLLERS"]},
+    {"id": "FM-TENSION-LOW", "name": "Low belt tension", "parts": ["Drive Belt"], "phrases": ["tension was low", "low tension", "re-tensioned"], "causes": [], "sops": ["SOP-CNV-01"], "spares": []},
+    {"id": "FM-JAW-WEAR", "name": "Worn chuck jaws", "parts": ["Chuck"], "phrases": ["jaw wear", "worn jaws"], "causes": [], "sops": ["SOP-LTH-01"], "spares": ["SP-CHUCK-JAWS"]}
+  ],
+  "spare_parts": [
+    {"id": "SP-BEARING-SET", "name": "Spindle bearing set", "for_parts": ["Spindle", "Bearing"], "stock": 2, "lead_time_days": 7, "location": "Store A-12"},
+    {"id": "SP-COOLANT-FILTER", "name": "Coolant filter", "for_parts": ["Coolant Pump"], "stock": 6, "lead_time_days": 2, "location": "Store A-03"},
+    {"id": "SP-SEAL-KIT", "name": "Hydraulic seal kit", "for_parts": ["Hydraulic Seal"], "stock": 1, "lead_time_days": 5, "location": "Store B-07"},
+    {"id": "SP-HYD-FILTER", "name": "Hydraulic oil filter", "for_parts": ["Hydraulic Pump"], "stock": 4, "lead_time_days": 3, "location": "Store B-02"},
+    {"id": "SP-SERVO-DRIVE", "name": "Servo drive module", "for_parts": ["Servo Motor"], "stock": 0, "lead_time_days": 14, "location": "Store C-01"},
+    {"id": "SP-ENCODER-CABLE", "name": "Encoder cable", "for_parts": ["Servo Motor"], "stock": 3, "lead_time_days": 4, "location": "Store C-04"},
+    {"id": "SP-SUCTION-CUPS", "name": "Suction cup set", "for_parts": ["Gripper"], "stock": 10, "lead_time_days": 2, "location": "Store C-09"},
+    {"id": "SP-WELD-NOZZLE", "name": "Welding nozzle", "for_parts": ["Welding Torch"], "stock": 8, "lead_time_days": 2, "location": "Store C-11"},
+    {"id": "SP-FEED-ROLLERS", "name": "Wire feed rollers", "for_parts": ["Wire Feeder"], "stock": 2, "lead_time_days": 6, "location": "Store C-12"},
+    {"id": "SP-DRIVE-BELT", "name": "Conveyor drive belt", "for_parts": ["Drive Belt"], "stock": 0, "lead_time_days": 5, "location": "Store D-01"},
+    {"id": "SP-CHUCK-JAWS", "name": "Chuck jaw set", "for_parts": ["Chuck"], "stock": 1, "lead_time_days": 10, "location": "Store A-08"}
+  ]
+}

@@ -1,18 +1,146 @@
 [
-  {"id": "TK-1001", "machine_id": "M1", "timestamp": "2026-09-02T10:14:00", "text": "Spindle overheating during high-speed finishing pass; temperature crossed 92 C and the job was aborted."},
-  {"id": "TK-1002", "machine_id": "M1", "timestamp": "2026-09-19T15:40:00", "text": "Abnormal vibration from the spindle at 8000 rpm, surface finish out of tolerance."},
-  {"id": "TK-1003", "machine_id": "M1", "timestamp": "2026-10-11T08:05:00", "text": "Grinding noise from the spindle housing, suspected bearing preload issue."},
-  {"id": "TK-1004", "machine_id": "M1", "timestamp": "2026-10-20T06:30:00", "text": "Coolant pump not priming after shift start; low coolant flow alarm raised."},
-  {"id": "TK-1005", "machine_id": "M3", "timestamp": "2026-08-14T11:20:00", "text": "Hydraulic seal leaking oil near the ram; pressure drops to 150 bar under load."},
-  {"id": "TK-1006", "machine_id": "M3", "timestamp": "2026-10-03T13:55:00", "text": "Repeat hydraulic seal failure, visible oil seepage on the cylinder wall."},
-  {"id": "TK-1007", "machine_id": "M3", "timestamp": "2026-10-25T09:10:00", "text": "Hydraulic pump making a whining noise, cavitation suspected."},
-  {"id": "TK-1008", "machine_id": "M6", "timestamp": "2026-09-08T17:45:00", "text": "Servo motor on axis 2 tripping on overcurrent fault during the pick cycle."},
-  {"id": "TK-1009", "machine_id": "M6", "timestamp": "2026-10-30T07:25:00", "text": "Servo motor encoder error, robot lost its home position."},
-  {"id": "TK-1010", "machine_id": "M6", "timestamp": "2026-11-12T12:00:00", "text": "Gripper failing to hold parts, vacuum drop observed at the suction cups."},
-  {"id": "TK-1011", "machine_id": "M2", "timestamp": "2026-09-25T14:35:00", "text": "Welding torch nozzle clogged with spatter, poor bead quality on chassis welds."},
-  {"id": "TK-1012", "machine_id": "M2", "timestamp": "2026-11-02T10:50:00", "text": "Wire feeder slipping, inconsistent wire speed causing porosity."},
-  {"id": "TK-1013", "machine_id": "M4", "timestamp": "2026-10-07T16:15:00", "text": "Drive belt misaligned and fraying at the edge."},
-  {"id": "TK-1014", "machine_id": "M4", "timestamp": "2026-11-15T21:30:00", "text": "Drive belt snapped during second shift, line stopped for 40 minutes."},
-  {"id": "TK-1015", "machine_id": "M5", "timestamp": "2026-11-05T09:40:00", "text": "Chuck jaws not clamping evenly, workpiece runout above limit."},
-  {"id": "TK-1016", "machine_id": "M5", "timestamp": "2026-11-18T18:20:00", "text": "Spindle temperature high on the lathe after a continuous 6-hour run."}
+  {
+    "id": "TK-1017",
+    "machine_id": "M1",
+    "timestamp": "2026-01-22T09:30:00",
+    "text": "Spindle overheating again; coolant flow measured at 5 L/min, coolant filter found clogged and replaced."
+  },
+  {
+    "id": "TK-1018",
+    "machine_id": "M1",
+    "timestamp": "2026-02-17T14:10:00",
+    "text": "Spindle running hot, lubrication unit not pulsing; topped up spindle oil and reset lubrication."
+  },
+  {
+    "id": "TK-1020",
+    "machine_id": "M3",
+    "timestamp": "2026-02-26T16:20:00",
+    "text": "Hydraulic seal leak traced to contaminated oil; seal kit replaced and oil filtered."
+  },
+  {
+    "id": "TK-1019",
+    "machine_id": "M5",
+    "timestamp": "2026-03-09T11:45:00",
+    "text": "Lathe spindle overheating with low coolant flow; coolant pump had an air lock and was re-primed."
+  },
+  {
+    "id": "TK-1022",
+    "machine_id": "M4",
+    "timestamp": "2026-03-18T13:05:00",
+    "text": "Drive belt slipping because belt tension was low; re-tensioned the drive belt."
+  },
+  {
+    "id": "TK-1023",
+    "machine_id": "M6",
+    "timestamp": "2026-04-12T10:40:00",
+    "text": "Servo motor overcurrent caused by a mechanical jam on the linear guide; cleared the jam."
+  },
+  {
+    "id": "TK-1005",
+    "machine_id": "M3",
+    "timestamp": "2026-04-14T11:20:00",
+    "text": "Hydraulic seal leaking oil near the ram; pressure drops to 150 bar under load."
+  },
+  {
+    "id": "TK-1021",
+    "machine_id": "M3",
+    "timestamp": "2026-04-30T08:50:00",
+    "text": "Hydraulic pump cavitation due to low oil level in the reservoir; topped up hydraulic oil."
+  },
+  {
+    "id": "TK-1001",
+    "machine_id": "M1",
+    "timestamp": "2026-05-02T10:14:00",
+    "text": "Spindle overheating during high-speed finishing pass; temperature crossed 92 C and the job was aborted."
+  },
+  {
+    "id": "TK-1024",
+    "machine_id": "M2",
+    "timestamp": "2026-05-06T15:30:00",
+    "text": "Wire feeder slip from worn feed rollers; feed rollers replaced."
+  },
+  {
+    "id": "TK-1008",
+    "machine_id": "M6",
+    "timestamp": "2026-05-08T17:45:00",
+    "text": "Servo motor on axis 2 tripping on overcurrent fault during the pick cycle."
+  },
+  {
+    "id": "TK-1002",
+    "machine_id": "M1",
+    "timestamp": "2026-05-19T15:40:00",
+    "text": "Abnormal vibration from the spindle at 8000 rpm, surface finish out of tolerance."
+  },
+  {
+    "id": "TK-1011",
+    "machine_id": "M2",
+    "timestamp": "2026-05-25T14:35:00",
+    "text": "Welding torch nozzle clogged with spatter, poor bead quality on chassis welds."
+  },
+  {
+    "id": "TK-1006",
+    "machine_id": "M3",
+    "timestamp": "2026-06-03T13:55:00",
+    "text": "Repeat hydraulic seal failure, visible oil seepage on the cylinder wall."
+  },
+  {
+    "id": "TK-1013",
+    "machine_id": "M4",
+    "timestamp": "2026-06-07T16:15:00",
+    "text": "Drive belt misaligned and fraying at the edge."
+  },
+  {
+    "id": "TK-1003",
+    "machine_id": "M1",
+    "timestamp": "2026-06-11T08:05:00",
+    "text": "Grinding noise from the spindle housing, suspected bearing preload issue."
+  },
+  {
+    "id": "TK-1004",
+    "machine_id": "M1",
+    "timestamp": "2026-06-20T06:30:00",
+    "text": "Coolant pump not priming after shift start; low coolant flow alarm raised."
+  },
+  {
+    "id": "TK-1007",
+    "machine_id": "M3",
+    "timestamp": "2026-06-25T09:10:00",
+    "text": "Hydraulic pump making a whining noise, cavitation suspected."
+  },
+  {
+    "id": "TK-1009",
+    "machine_id": "M6",
+    "timestamp": "2026-06-30T07:25:00",
+    "text": "Servo motor encoder error, robot lost its home position."
+  },
+  {
+    "id": "TK-1012",
+    "machine_id": "M2",
+    "timestamp": "2026-07-02T10:50:00",
+    "text": "Wire feeder slipping, inconsistent wire speed causing porosity."
+  },
+  {
+    "id": "TK-1015",
+    "machine_id": "M5",
+    "timestamp": "2026-07-05T09:40:00",
+    "text": "Chuck jaws not clamping evenly, workpiece runout above limit."
+  },
+  {
+    "id": "TK-1010",
+    "machine_id": "M6",
+    "timestamp": "2026-07-12T12:00:00",
+    "text": "Gripper failing to hold parts, vacuum drop observed at the suction cups."
+  },
+  {
+    "id": "TK-1014",
+    "machine_id": "M4",
+    "timestamp": "2026-07-15T21:30:00",
+    "text": "Drive belt snapped during second shift, line stopped for 40 minutes."
+  },
+  {
+    "id": "TK-1016",
+    "machine_id": "M5",
+    "timestamp": "2026-07-18T18:20:00",
+    "text": "Spindle temperature high on the lathe after a continuous 6-hour run."
+  }
 ]

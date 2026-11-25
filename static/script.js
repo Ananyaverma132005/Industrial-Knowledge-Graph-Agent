@@ -3,16 +3,18 @@
 const COLORS = {
   Machine: "var(--machine)", Part: "var(--part)", Sensor: "var(--sensor)",
   Ticket: "var(--ticket)", SOP: "var(--sop)", Technician: "var(--technician)",
+  FailureMode: "var(--failure)", SparePart: "var(--spare)",
 };
-const RADIUS = { Machine: 15, Technician: 10, Part: 7, Sensor: 6, Ticket: 5.5, SOP: 6.5 };
+const RADIUS = { Machine: 15, Technician: 10, Part: 7, Sensor: 6, Ticket: 5.5, SOP: 6.5, FailureMode: 7.5, SparePart: 6.5 };
 const SUGGESTIONS = [
+  ["What is the root cause of spindle overheating?", "Root cause"],
+  ["Troubleshooting path for servo motor overcurrent", "Troubleshoot"],
+  ["What is the impact if the belt conveyor fails?", "Impact"],
+  ["Which spare parts are out of stock?", "Spares"],
   ["Which parts are at risk of failure?", "Graph"],
-  ["What parts does the CNC milling machine have?", "Graph"],
-  ["Show failure tickets for the spindle", "Graph"],
   ["Who maintains the hydraulic press?", "Graph"],
-  ["How do I fix spindle overheating?", "Procedure"],
-  ["Procedure to replace a hydraulic seal", "Procedure"],
-  ["What is the lockout tagout procedure?", "Procedure"],
+  ["How do I fix a hydraulic seal leak?", "Manual"],
+  ["How should belts and pulleys be guarded?", "Manual"],
 ];
 const SOURCE_LABEL = { GRAPH: "Knowledge graph", VECTOR: "SOP manuals" };
 
